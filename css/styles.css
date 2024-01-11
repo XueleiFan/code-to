@@ -26,6 +26,7 @@
     background-color: white;
     /* Ensure consistent padding and margin with code editor */
     padding: 10px; /* Match with code editor's padding */
+    font-size: medium;
 }
 
 .text-editor:focus-within {
@@ -36,11 +37,11 @@
 /* Code Editor Styles */
 .code-editor {
     width: 100%;
-    height: auto;
+    /* height: auto; */
     min-height: 50px;
     border: 1px solid #ccc;
     resize: vertical;
-    overflow: auto;
+    /* overflow: auto; */
     font-family: monospace;
     padding: 10px; /* Ensure padding matches text editor */
     margin: 0; /* Remove default margins */

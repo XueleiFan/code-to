@@ -1,3 +1,5 @@
+var aceEditors = {};
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the first Quill editor
     new Quill('.text-editor', {
@@ -8,16 +10,40 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add the save button clicking action
     document.getElementById('fileInput').addEventListener('change', loadNotebook);
 
-    // Initialize dynamic height for existing code editors
-    document.querySelectorAll('.code-editor').forEach(textarea => {
-        adjustTextareaHeight(textarea);
-        textarea.addEventListener('input', function() { adjustTextareaHeight(this); });
+    // Initialize Ace Editor for existing code-editor sections
+    document.querySelectorAll('.code-editor').forEach(editorDiv => {
+        // Store the editor instance for later use
+        const editorId = generateUniqueId();
+        editorDiv.id = editorId;
+
+        // Create Ace Editor in the container
+        createAceEditor(editorDiv, editorId);
     });
 });
 
-function adjustTextareaHeight(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
+function generateUniqueId() {
+    return 'code_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+}
+
+function createAceEditor(editorDiv, editorId) {
+    // Initialize Ace Editor
+    const editor = ace.edit(editorDiv, {
+        mode: "ace/mode/java",
+        placeholder: "Share your code and check it out.",
+        minLines: 5,
+        maxLines: 50,
+        autoScrollEditorIntoView: true
+    });
+    editor.renderer.setScrollMargin(10, 10, 10, 10);
+
+    editor.on("change", function() {
+        editor.resize();
+    });
+
+    // Store the editor instance by the unique ID
+    aceEditors[editorId] = editor;
+
+    return editor;
 }
 
 function createButtonsDiv(type) {
@@ -48,10 +74,17 @@ window.addSection = function(type, button) {
             placeholder: 'Enter your text to share knowledge...'
         });
     } else if (type === 'code') {
-        const textarea = document.createElement('textarea');
-        textarea.className = 'code-editor';
-        newSection.appendChild(textarea);
-        newEditor = textarea; // Set the new textarea for focusing
+        const editorDiv = document.createElement('div');
+        editorDiv.className = 'code-editor';
+
+        // Generate and set a unique ID for the editor
+        const editorId = generateUniqueId();
+        editorDiv.id = editorId;
+
+        newSection.appendChild(editorDiv);
+
+        // Initialize Ace Editor, and hold the area to focus on
+        newEditor = createAceEditor(editorDiv, editorId);
     }
 
     const buttonsDiv = createButtonsDiv(type);
@@ -90,13 +123,18 @@ window.runCode = function(button) {
 function saveNotebook() {
     const sections = document.querySelectorAll('.editor-section');
     const notebookData = Array.from(sections).map(section => {
+        // Check for a text editor
         const textEditor = section.querySelector('.text-editor .ql-editor');
-        const codeEditor = section.querySelector('.code-editor');
+        const textContent = textEditor ? textEditor.innerHTML : null;
 
-        return {
-            text: textEditor ? textEditor.innerHTML : null,
-            code: codeEditor ? codeEditor.value : null
-        };
+        // Check for an Ace Editor
+        const aceEditorDiv = section.querySelector('.code-editor');
+        let codeContent = null;
+        if (aceEditorDiv && aceEditorDiv.id && aceEditors[aceEditorDiv.id]) {
+            codeContent = aceEditors[aceEditorDiv.id].getValue();
+        }
+
+        return { text: textContent, code: codeContent };
     });
 
     const notebookBlob = new Blob([JSON.stringify(notebookData, null, 2)], { type: 'application/json' });
@@ -138,13 +176,18 @@ function recreateEditorSections(content) {
             new Quill(textEditor, { theme: 'bubble', placeholder: 'Share your knowledge, help others grow.' });
             textEditor.querySelector('.ql-editor').innerHTML = sectionData.text;
         } else if (sectionData.code) {
-            const codeEditor = document.createElement('textarea');
-            codeEditor.className = 'code-editor';
-            codeEditor.value = sectionData.code;
-            section.appendChild(codeEditor);
+            const editorDiv = document.createElement('div');
+            editorDiv.className = 'code-editor';
 
-            // Wait for the next tick to adjust height
-            setTimeout(() => adjustTextareaHeight(codeEditor), 0);
+            // Generate and set a unique ID for the editor
+            const editorId = generateUniqueId();
+            editorDiv.id = editorId;
+
+            section.appendChild(editorDiv);
+
+            // Initialize Ace Editor with the saved content
+            const editor = createAceEditor(editorDiv, editorId);
+            editor.setValue(sectionData.code);
         }
 
         const buttonsDiv = createButtonsDiv(sectionData.code ? 'code' : 'text');

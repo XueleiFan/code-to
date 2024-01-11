@@ -5,6 +5,7 @@
     <title>Document Editor</title>
     <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 <div class="button-container">
@@ -24,9 +25,7 @@
 
     <!-- Code Editor Section -->
     <div class="editor-section">
-        <label>
-            <textarea class="code-editor"></textarea>
-        </label>
+        <div class="code-editor"></div>
         <div class="section-buttons top-right">
             <button onclick="addSection('text', this)">Add Text</button>
             <button onclick="addSection('code', this)">Add Code</button>
