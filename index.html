@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Editor</title>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="button-container">
+    <button id="loadButton" onclick="document.getElementById('fileInput').click()">Load Notebook</button>
+    <button id="saveButtonTop" onclick="saveNotebook()">Save Notebook</button>
+    <input type="file" id="fileInput" style="display: none;" onchange="loadNotebook()">
+</div>
+<div id="editor-container">
+    <!-- Text Editor Section -->
+    <div class="editor-section">
+        <div class="text-editor"></div>
+        <div class="section-buttons top-right">
+            <button onclick="addSection('text', this)">Add Text</button>
+            <button onclick="addSection('code', this)">Add Code</button>
+        </div>
+    </div>
+
+    <!-- Code Editor Section -->
+    <div class="editor-section">
+        <label>
+            <textarea class="code-editor"></textarea>
+        </label>
+        <div class="section-buttons top-right">
+            <button onclick="addSection('text', this)">Add Text</button>
+            <button onclick="addSection('code', this)">Add Code</button>
+            <button class="run-button" onclick="runCode(this)">Run</button>
+            <button class="remove-button" onclick="removeSection(this)">Remove</button>
+        </div>
+    </div>
+</div>
+<div class="button-container">
+    <button id="saveButtonBottom" onclick="saveNotebook()">Save Notebook</button>
+</div>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>

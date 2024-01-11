@@ -1,0 +1,88 @@
+.button-container {
+    text-align: center; /* Center buttons horizontally */
+    margin: 15px 0; /* Add some vertical spacing around the button container */
+}
+
+#editor-container {
+    max-width: 1024px; /* Maximum width for larger screens */
+    width: 90%; /* Responsive width */
+    margin: 0 auto; /* Center the container */
+    padding: 15px; /* Optional: adds some padding inside the container */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+/* General Editor Section Styles */
+.editor-section {
+    position: relative;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+/* Text Editor Styles (Quill) */
+.text-editor {
+    height: auto;
+    min-height: 50px;
+    border: 1px solid transparent;
+    background-color: white;
+    /* Ensure consistent padding and margin with code editor */
+    padding: 10px; /* Match with code editor's padding */
+}
+
+.text-editor:focus-within {
+    border: 1px solid #ccc;
+    background-color: #f8f8f2;
+}
+
+/* Code Editor Styles */
+.code-editor {
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    overflow: auto;
+    font-family: monospace;
+    padding: 10px; /* Ensure padding matches text editor */
+    margin: 0; /* Remove default margins */
+    box-sizing: border-box;
+}
+
+/* Evaluation Result Styles */
+.evaluation-result {
+    border: 1px solid #ddd;
+    background-color: #f8f9fa;
+    padding: 10px;
+    margin-top: 5px;
+    white-space: pre-wrap;
+}
+
+/* Buttons Container */
+.section-buttons.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* Hide section buttons by default */
+.section-buttons {
+    display: none;
+}
+
+/* Show section buttons when editor-section is hovered */
+.editor-section:hover .section-buttons {
+    display: block;
+}
+
+/* Button Styles */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Remove Button Style */
+.remove-button {
+    background-color: #dc3545;
+}
