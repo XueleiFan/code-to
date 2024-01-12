@@ -36,10 +36,6 @@ function createAceEditor(editorDiv, editorId) {
     });
     editor.renderer.setScrollMargin(10, 10, 10, 10);
 
-    editor.on("change", function() {
-        editor.resize();
-    });
-
     // Store the editor instance by the unique ID
     aceEditors[editorId] = editor;
 
@@ -110,14 +106,18 @@ window.runCode = function(button) {
     // Simulate code evaluation
     const resultMessage = "It is OK!"; // Simulated response message
 
-    // Create a div to display the result
-    const resultDiv = document.createElement('div');
-    resultDiv.className = 'evaluation-result';
-    resultDiv.textContent = 'Result: ' + resultMessage;
+    // Check for an existing result div
+    let resultDiv = button.closest('.editor-section').querySelector('.evaluation-result');
+    if (!resultDiv) {
+        // Create a div to display the result if it doesn't exist
+        resultDiv = document.createElement('div');
+        resultDiv.className = 'evaluation-result';
+        const buttonsDiv = button.closest('.section-buttons');
+        buttonsDiv.parentNode.insertBefore(resultDiv, buttonsDiv);
+    }
 
-    // Insert the result div after the code editor and before the buttons
-    const buttonsDiv = button.closest('.section-buttons');
-    buttonsDiv.parentNode.insertBefore(resultDiv, buttonsDiv);
+    // Update the content of the result div
+    resultDiv.textContent = 'Result: ' + resultMessage;
 };
 
 function saveNotebook() {
