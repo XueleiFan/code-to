@@ -1,4 +1,4 @@
-var aceEditors = {};
+const aceEditors = {};
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the first Quill editor
@@ -99,12 +99,10 @@ window.removeSection = function(button) {
     section.parentNode.removeChild(section);
 };
 
-window.runCode = function(button) {
+window.runCode = async function(button) {
     const codeEditor = button.closest('.editor-section').querySelector('.code-editor');
-    const code = codeEditor.value;
+    const code = aceEditors[codeEditor.id].getValue();
 
-    // Simulate code evaluation
-    const resultMessage = "It is OK!"; // Simulated response message
 
     // Check for an existing result div
     let resultDiv = button.closest('.editor-section').querySelector('.evaluation-result');
@@ -116,8 +114,26 @@ window.runCode = function(button) {
         buttonsDiv.parentNode.insertBefore(resultDiv, buttonsDiv);
     }
 
-    // Update the content of the result div
-    resultDiv.textContent = 'Result: ' + resultMessage;
+    try {
+        const response = await fetch('/go', {
+                method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                code
+            })
+        });
+        const data = await response.json();
+
+        // Update the content and class of the result div based on the status
+        resultDiv.textContent = `Status: ${data.status ? 'Success' : 'Failed'}\nMessage:\n${data.message}`;
+        resultDiv.className = data.status ? 'evaluation-result good' : 'evaluation-result failed';
+    } catch (error) {
+        resultDiv.textContent = `Status: Failed\nMessage:\nUh oh, seems like our servers have taken a cat nap!`;
+        resultDiv.className = 'evaluation-result failed';
+        console.error('Error running code:', error);
+    }
 };
 
 function saveNotebook() {
