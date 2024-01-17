@@ -12,6 +12,22 @@ body {
     max-width: 320px; /* Maximum width for larger screens */
 }
 
+#header {
+    text-align: center; /* Center the content in the header */
+    padding: 10px;
+}
+
+#logo {
+    /* height: 50px; Adjust the size as needed */
+    width: 50%;
+}
+
+#slogan {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the color as needed */
+    margin-top: 10px; /* Space between logo and slogan */
+}
+
 #panel-contents {
     width: 70%; /* Adjust the width as needed */
     padding: 10px;
