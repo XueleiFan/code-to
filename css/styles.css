@@ -16,6 +16,7 @@ body {
     width: 70%; /* Adjust the width as needed */
     padding: 10px;
     max-width: 768px; /* Maximum width for larger screens */
+    margin-bottom: 48px;  /* space for copyright footer */
 }
 
 .button-container {
