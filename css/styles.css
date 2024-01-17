@@ -1,10 +1,30 @@
+body {
+    display: flex;
+    max-width: 1536px; /* Maximum width for larger screens */
+    width: 90%; /* Responsive width */
+    margin: 0 auto; /* Center the container */
+}
+
+#panel-sidenav {
+    width: 30%; /* Adjust the width as needed */
+    border-right: 1px solid #ccc; /* Separator between panels */
+    padding: 10px;
+    max-width: 320px; /* Maximum width for larger screens */
+}
+
+#panel-contents {
+    width: 70%; /* Adjust the width as needed */
+    padding: 10px;
+    max-width: 768px; /* Maximum width for larger screens */
+}
+
 .button-container {
     text-align: center; /* Center buttons horizontally */
     margin: 15px 0; /* Add some vertical spacing around the button container */
 }
 
 #editor-container {
-    max-width: 1024px; /* Maximum width for larger screens */
+    max-width: 768px; /* Maximum width for larger screens */
     width: 90%; /* Responsive width */
     margin: 0 auto; /* Center the container */
     padding: 15px; /* Optional: adds some padding inside the container */
@@ -86,4 +106,92 @@ button {
 /* Remove Button Style */
 .remove-button {
     background-color: #dc3545;
+}
+
+#reposUrl {
+    display: block;
+    width: 90%;
+}
+#repos-file-tree .directory {
+    font-weight: bold;
+    cursor: pointer;
+    color: blue;
+}
+
+#repos-file-tree .file {
+    color: black;
+}
+
+#repos-file-tree .item {
+    margin-bottom: 5px;
+}
+
+#repos-file-tree .sub-directory {
+    margin-left: 20px;
+}
+
+#repos-file-tree {
+    position: relative;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1; /* Ensure it appears above other content */
+    /* Adjust positioning as needed */
+    max-height: 720px;
+    overflow: scroll;
+}
+
+#repos-file-tree ul {
+    list-style: none;
+    padding-left: 20px;
+}
+#repos-file-tree ul.repos-list {
+    padding-left: 0;
+}
+
+/* Style the folder icons for collapse/expand */
+.folder-icon, .file-icon {
+    width: 16px; /* Set the width of the icon */
+    height: 16px; /* Set the height of the icon */
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    margin-right: 10px; /* Add some spacing between the icon and text */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* Style the folder icon for closed folders */
+.folder-icon::before {
+    content: '\1F4C1';
+    margin-right: 10px;
+}
+
+/* Style the folder icon for opened folders */
+.folder-open .folder-icon::before {
+    content: '\1F4C2';
+}
+
+/* Style the file icon (customize as needed) */
+.file-icon::before {
+    content: '\1F4C4'; /* Unicode character for file icon (customize as needed) */
+    margin-right: 10px;
+}
+
+/* Style to hide or show subdirectories */
+.hidden {
+    display: none;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8f8;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 0.8em;
 }

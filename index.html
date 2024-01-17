@@ -8,6 +8,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.3/ace.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
+<div id="panel-sidenav">
+    <div class="button-container">
+        <button id="exploreBtn" onclick="loadRepository()">Load from GitHub</button>
+    </div>
+    <div id="repos-container">
+        <!--label for="reposUrl"></label-->
+        <input type="text" id="reposUrl" placeholder="Enter GitHub Repository URL">
+        <div id="repos-file-tree"> </div>
+        <!-- The repository contents will be listed here -->
+    </div>
+</div>
+<div id="panel-contents">
 <div class="button-container">
     <button id="loadButton" onclick="document.getElementById('fileInput').click()">Load Notebook</button>
     <button id="saveButtonTop" onclick="saveNotebook()">Save Notebook</button>
@@ -37,6 +49,12 @@
 <div class="button-container">
     <button id="saveButtonBottom" onclick="saveNotebook()">Save Notebook</button>
 </div>
+</div>
+<footer class="footer">
+    <div class="footer-content">
+        <p>Copyright © 2024 Xuelei Fan. All rights reserved.</p>
+    </div>
+</footer>
 <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
 <script src="js/script.js"></script>
 </body>
