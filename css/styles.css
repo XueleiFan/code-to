@@ -55,6 +55,10 @@ body {
     box-sizing: border-box; /* Include padding and border in the width calculation */
 }
 
+.code-section {
+    display: flex;
+}
+
 /* Text Editor Styles (Quill) */
 .text-editor {
     height: auto;
@@ -86,7 +90,7 @@ body {
 }
 
 /* Evaluation Result Styles */
-.evaluation-result {
+.eval-result {
     border: 1px solid #ddd;
     background-color: #f8f9fa;
     padding: 10px;
@@ -123,6 +127,13 @@ button {
 /* Remove Button Style */
 .remove-button {
     background-color: #dc3545;
+}
+
+.run-button {
+    background-color: #eee;
+    color: white;
+    font-size: 16px;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 #reposUrl {

@@ -41,12 +41,14 @@
 
     <!-- Code Editor Section -->
     <div class="editor-section">
-        <div class="code-editor"></div>
-        <div class="section-buttons top-right">
-            <button onclick="addSection('text', this)">Add Text</button>
-            <button onclick="addSection('code', this)">Add Code</button>
-            <button class="run-button" onclick="runCode(this)">Run</button>
-            <button class="remove-button" onclick="removeSection(this)">Remove</button>
+        <div class="code-section">
+            <div class="code-editor"></div>
+            <button class="run-button" onclick="runCode(this)">&#9654;</button>
+            <div class="section-buttons top-right">
+                <button onclick="addSection('text', this)">Add Text</button>
+                <button onclick="addSection('code', this)">Add Code</button>
+                <button class="remove-button" onclick="removeSection(this)">Remove</button>
+            </div>
         </div>
     </div>
 </div>

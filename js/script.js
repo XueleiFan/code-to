@@ -46,56 +46,92 @@ function createAceEditor(editorDiv, editorId) {
     return editor;
 }
 
-function createButtonsDiv(type) {
+function createButtonsDivs(section, type) {
+    if (type === 'code') {
+        const runButton = document.createElement("button");
+        runButton.classList.add("run-button");
+        runButton.textContent = "▶";
+        runButton.setAttribute("onclick", "runCode(this)");
+
+        // runButton.onclick = function() {
+        //     runCode(this);
+        // };
+
+        section.appendChild(runButton);
+    }
+
     const buttonsDiv = document.createElement('div');
     buttonsDiv.className = 'section-buttons top-right';
     buttonsDiv.innerHTML = `
         <button onclick="addSection('text', this)">Add Text</button>
         <button onclick="addSection('code', this)">Add Code</button>
-        ${type === 'code' ? '<button class="run-button" onclick="runCode(this)">Run</button>' : ''}
         <button class="remove-button" onclick="removeSection(this)">Remove</button>
     `;
-    return buttonsDiv;
+    section.appendChild(buttonsDiv);
 }
+
+function createTextSection(parent, focusOn) {
+    const editorDiv = document.createElement('div');
+    editorDiv.className = 'text-editor';
+    parent.appendChild(editorDiv);
+
+    // Set the new Quill editor
+    let quillEditor = new Quill(editorDiv, {
+        theme: 'bubble',
+        placeholder: 'Enter your text to share knowledge...'
+    });
+
+    // Create text section buttons
+    createButtonsDivs(parent, 'text');
+
+    if (focusOn) {
+        quillEditor.focus();
+    }
+
+    return editorDiv;
+}
+
+function createCodeSection(parent, focusOn) {
+    const codeSection = document.createElement('div');
+    codeSection.className = 'code-section';
+    parent.appendChild(codeSection);
+
+    const editorDiv = document.createElement('div');
+    editorDiv.className = 'code-editor';
+
+    // Generate and set a unique ID for the editor
+    const editorId = generateUniqueId();
+    editorDiv.id = editorId;
+
+    codeSection.appendChild(editorDiv);
+
+    // Initialize Ace Editor, and hold the area to focus on
+    let aceEditor = createAceEditor(editorDiv, editorId);
+
+    // Create code section buttons
+    createButtonsDivs(codeSection, 'code');
+
+    // Focus on the editor
+    if (focusOn) {
+        aceEditor.focus();
+    }
+
+    return aceEditor;
+}
+
 
 window.addSection = function(type, button) {
     const currentSection = button.closest('.editor-section');
     const newSection = document.createElement('div');
     newSection.className = 'editor-section';
 
-    let newEditor; // Variable to hold the new editor or textarea
-
     if (type === 'text') {
-        const editor = document.createElement('div');
-        editor.className = 'text-editor';
-        newSection.appendChild(editor);
-        newEditor = new Quill(editor, { // Set the new Quill editor for focusing
-            theme: 'bubble',
-            placeholder: 'Enter your text to share knowledge...'
-        });
+        createTextSection(newSection, true);
     } else if (type === 'code') {
-        const editorDiv = document.createElement('div');
-        editorDiv.className = 'code-editor';
-
-        // Generate and set a unique ID for the editor
-        const editorId = generateUniqueId();
-        editorDiv.id = editorId;
-
-        newSection.appendChild(editorDiv);
-
-        // Initialize Ace Editor, and hold the area to focus on
-        newEditor = createAceEditor(editorDiv, editorId);
+        createCodeSection(newSection, true);
     }
 
-    const buttonsDiv = createButtonsDiv(type);
-    newSection.appendChild(buttonsDiv);
     currentSection.parentNode.insertBefore(newSection, currentSection.nextSibling);
-
-    // Automatically focus the new editor or textarea
-    if (newEditor) {
-        // The newEditor could be a textarea or Quill editor
-        newEditor.focus();
-    }
 };
 
 window.removeSection = function(button) {
@@ -107,15 +143,15 @@ window.runCode = async function(button) {
     const codeEditor = button.closest('.editor-section').querySelector('.code-editor');
     const code = aceEditors[codeEditor.id].getValue();
 
-
     // Check for an existing result div
-    let resultDiv = button.closest('.editor-section').querySelector('.evaluation-result');
+    // let resultDiv = button.closest('.editor-section').querySelector('.eval-result');
+    let editorSection = button.parentNode.parentNode;
+    let resultDiv = editorSection.querySelector(".eval-result")
     if (!resultDiv) {
         // Create a div to display the result if it doesn't exist
         resultDiv = document.createElement('div');
-        resultDiv.className = 'evaluation-result';
-        const buttonsDiv = button.closest('.section-buttons');
-        buttonsDiv.parentNode.insertBefore(resultDiv, buttonsDiv);
+        resultDiv.className = 'eval-result';
+        editorSection.appendChild(resultDiv);
     }
 
     try {
@@ -132,10 +168,10 @@ window.runCode = async function(button) {
 
         // Update the content and class of the result div based on the status
         resultDiv.textContent = `Status: ${data.status ? 'Success' : 'Failed'}\nMessage:\n${data.message}`;
-        resultDiv.className = data.status ? 'evaluation-result good' : 'evaluation-result failed';
+        resultDiv.className = data.status ? 'eval-result good' : 'eval-result failed';
     } catch (error) {
         resultDiv.textContent = `Status: Failed\nMessage:\nUh oh, seems like our servers have taken a cat nap!`;
-        resultDiv.className = 'evaluation-result failed';
+        resultDiv.className = 'eval-result failed';
         console.error('Error running code:', error);
     }
 };
@@ -190,28 +226,13 @@ function recreateEditorSections(content) {
         section.className = 'editor-section';
 
         if (sectionData.text) {
-            const textEditor = document.createElement('div');
-            textEditor.className = 'text-editor';
-            section.appendChild(textEditor);
-            new Quill(textEditor, { theme: 'bubble', placeholder: 'Share your knowledge, help others grow.' });
+            let textEditor = createTextSection(section, false);
             textEditor.querySelector('.ql-editor').innerHTML = sectionData.text;
         } else if (sectionData.code) {
-            const editorDiv = document.createElement('div');
-            editorDiv.className = 'code-editor';
-
-            // Generate and set a unique ID for the editor
-            const editorId = generateUniqueId();
-            editorDiv.id = editorId;
-
-            section.appendChild(editorDiv);
-
-            // Initialize Ace Editor with the saved content
-            const editor = createAceEditor(editorDiv, editorId);
-            editor.setValue(sectionData.code);
+            let aceEditor = createCodeSection(section, false);
+            aceEditor.setValue(sectionData.code);
         }
 
-        const buttonsDiv = createButtonsDiv(sectionData.code ? 'code' : 'text');
-        section.appendChild(buttonsDiv);
         editorContainer.appendChild(section);
     });
 }
@@ -363,7 +384,7 @@ async function populateFromQueryParameters() {
         urlInput.value = reposUrl;
 
         // Load and build the file tree using your existing functions
-        loadRepository(reposUrl);
+        await loadRepository(reposUrl);
 
         // Fetch the "index.notebook" file using GitHub REST APIs
         const indexNotebookUrl = `${apiUrl}/contents/index.notebook`;
