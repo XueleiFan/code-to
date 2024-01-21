@@ -63,8 +63,8 @@ function createButtonsDivs(section, type) {
     const buttonsDiv = document.createElement('div');
     buttonsDiv.className = 'section-buttons top-right';
     buttonsDiv.innerHTML = `
-        <button onclick="addSection('text', this)">Add Text</button>
-        <button onclick="addSection('code', this)">Add Code</button>
+        <button class="add-button" onclick="addSection('text', this)">Add Text</button>
+        <button class="add-button" onclick="addSection('code', this)">Add Code</button>
         <button class="remove-button" onclick="removeSection(this)">Remove</button>
     `;
     section.appendChild(buttonsDiv);
