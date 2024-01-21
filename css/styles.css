@@ -75,13 +75,21 @@ body {
     background-color: #f8f8f2;
 }
 
+.ql-bubble .ql-tooltip {
+    z-index: 100000;  /* big enough to avoid overlap */
+}
+
+.ql-bubble .ql-tooltip button {
+    width: 24px;
+}
+
 /* Code Editor Styles */
 .code-editor {
     width: 100%;
     /* height: auto; */
     min-height: 50px;
     border: 1px solid #ccc;
-    border-radius: 3px 0px 0px 3px;
+    border-radius: 3px 0 0 3px;
     resize: vertical;
     /* overflow: auto; */
     font-family: monospace;
@@ -142,9 +150,9 @@ body {
     background-color: #eee;
     color: white;
     border: none;
-    border-radius: 0px 3px 3px 0px;
+    border-radius: 0 3px 3px 0;
     font-size: 16px;
-    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
 }
 
 #reposUrl {

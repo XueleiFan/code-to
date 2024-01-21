@@ -1,9 +1,27 @@
 const aceEditors = {};
 
+const toolbarOptions = [
+    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+    ['bold', 'italic', 'underline', 'strike',
+        {'script': 'sub'}, {'script': 'super'}
+    ],
+
+    [{'color': []}, {'background': []} ],
+
+    [{'list': 'ordered'}, {'list': 'bullet'},
+        {'indent': '-1'}, {'indent': '+1'}, {'align': []}
+    ],
+
+    ['blockquote', 'code-block', 'link', 'image'],
+    ['clean']
+];
 
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the first Quill editor
     new Quill('.text-editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
         theme: 'bubble',
         placeholder: 'Share your knowledge, help others grow.'
     });
@@ -77,6 +95,9 @@ function createTextSection(parent, focusOn) {
 
     // Set the new Quill editor
     let quillEditor = new Quill(editorDiv, {
+        modules: {
+            toolbar: toolbarOptions
+        },
         theme: 'bubble',
         placeholder: 'Enter your text to share knowledge...'
     });
