@@ -159,7 +159,13 @@ body {
 #reposUrl {
     display: block;
     width: 100%;
+    background-color: #eee;
+}
+
+#reposUrl, #repos-file-tree {
     box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 
 #repos-file-tree .directory {
@@ -183,13 +189,11 @@ body {
 #repos-file-tree {
     position: relative;
     background-color: white;
-    border: 1px solid #ccc;
     padding: 10px;
     z-index: 1; /* Ensure it appears above other content */
     /* Adjust positioning as needed */
     max-height: 720px;
     overflow: auto;
-    box-sizing: border-box;
 }
 
 #repos-file-tree ul {
