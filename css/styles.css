@@ -3,6 +3,7 @@ body {
     max-width: 1536px; /* Maximum width for larger screens */
     width: 90%; /* Responsive width */
     margin: 0 auto; /* Center the container */
+    justify-content: center;
 }
 
 #panel-sidenav {
