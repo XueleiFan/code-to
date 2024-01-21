@@ -158,8 +158,10 @@ body {
 
 #reposUrl {
     display: block;
-    width: 90%;
+    width: 100%;
+    box-sizing: border-box;
 }
+
 #repos-file-tree .directory {
     font-weight: bold;
     cursor: pointer;
@@ -186,7 +188,8 @@ body {
     z-index: 1; /* Ensure it appears above other content */
     /* Adjust positioning as needed */
     max-height: 720px;
-    overflow: scroll;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 #repos-file-tree ul {
