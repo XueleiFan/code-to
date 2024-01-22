@@ -1,16 +1,11 @@
 body {
-    display: flex;
     max-width: 1536px; /* Maximum width for larger screens */
-    width: 90%; /* Responsive width */
     margin: 0 auto; /* Center the container */
     justify-content: center;
 }
 
 #panel-sidenav {
-    width: 30%; /* Adjust the width as needed */
-    border-right: 1px solid #ccc; /* Separator between panels */
     padding: 10px;
-    max-width: 320px; /* Maximum width for larger screens */
 }
 
 #header {
@@ -19,7 +14,6 @@ body {
 }
 
 #logo {
-    /* height: 50px; Adjust the size as needed */
     width: 50%;
 }
 
@@ -30,10 +24,87 @@ body {
 }
 
 #panel-contents {
-    width: 70%; /* Adjust the width as needed */
     padding: 10px;
-    max-width: 768px; /* Maximum width for larger screens */
     margin-bottom: 48px;  /* space for copyright footer */
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+    /* For tablets and smaller devices */
+    body {
+        display: flex;
+        width: 90%;
+    }
+
+    #panel-sidenav {
+        border-right: 1px solid #ccc; /* Separator between panels */
+        width: 30%; /* Adjust the width as needed */
+        max-width: 320px; /* Maximum width for larger screens */
+    }
+
+    #logo {
+        width: 50%;
+    }
+
+    #panel-contents {
+        width: 70%; /* Adjust the width as needed */
+        max-width: 768px; /* Maximum width for larger screens */
+    }
+
+    #editor-container {
+        max-width: 768px; /* Maximum width for larger screens */
+        width: 90%; /* Responsive width */
+        padding: 15px; /* Optional: adds some padding inside the container */
+    }
+}
+
+@media (max-width: 1024px) { /* For tablets and smaller devices */
+    body {
+        display: grid;
+        width: 100%;
+    }
+
+    #panel-sidenav {
+        border-right: none;
+        align-items: center;
+        justify-content: center;
+        display: grid;
+    }
+
+    #panel-sidenav, #panel-contents {
+        max-width: none; /* Remove max-width restriction */
+    }
+
+    .button-container {
+        width: 100%;
+    }
+
+    #logo {
+        width: 15%;  /* Adjust logo size for smaller screens */
+    }
+
+    #editor-container {
+        max-width: none; /* Maximum width for larger screens */
+        width: 100%; /* Responsive width */
+        padding: 0; /* Optional: adds some padding inside the container */
+    }
+}
+
+@media (max-width: 768px) {
+    #logo {
+        width: 13%;  /* Adjust logo size for smaller screens */
+    }
+}
+
+
+@media (max-width: 480px) { /* For smartphones */
+    #slogan {
+        font-size: 18px; /* Smaller font size */
+    }
+
+    #logo {
+        width: 12%;
+    }
 }
 
 .button-container {
@@ -42,10 +113,7 @@ body {
 }
 
 #editor-container {
-    max-width: 768px; /* Maximum width for larger screens */
-    width: 90%; /* Responsive width */
     margin: 0 auto; /* Center the container */
-    padding: 15px; /* Optional: adds some padding inside the container */
     box-sizing: border-box; /* Include padding in the width calculation */
 }
 
