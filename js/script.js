@@ -18,7 +18,7 @@ const toolbarOptions = [
 
 const defaultNotebook = [
     {
-        "text": "<h1 class=\"ql-align-center\">Java Code Playground</h1><h3 class=\"ql-align-center\">Code, Run, Share - Instantly!</h3><p><br></p><p>From idea to execution, seamlessly! Enter your thoughts, code your snippets, and hit \"go\" to watch them come alive in Java Code Playground.</p>",
+        "text": "<h1 class=\"ql-align-center\">Java Code Playground</h1><h3 class=\"ql-align-center\">Code, Run, Share - Instantly!</h3><p><br></p><p>From idea to execution, seamlessly! </p><p><br></p><p>Enter your thoughts, code your snippets, and hit \"go\" to watch them come alive in Java Code Playground.</p>",
         "code": null
     },
     {
