@@ -14,7 +14,10 @@
         <h2 id="slogan">Java Code Playground</h2>
     </div>
     <div class="button-container">
-        <button class="load-button" id="exploreBtn" onclick="loadRepository()">Load from GitHub</button>
+        <button class="load-button" id="exploreBtn" onclick="loadRepository()">Load GitHub Repos</button>
+        <button class="load-button" id="loadButton" onclick="document.getElementById('fileInput').click()">Load Notebook</button>
+        <button class="save-button" id="saveButtonTop" onclick="saveNotebook()">Save Notebook</button>
+        <input type="file" id="fileInput" style="display: none;" onchange="loadNotebook()">
     </div>
     <div id="repos-container">
         <!--label for="reposUrl"></label-->
@@ -24,11 +27,6 @@
     </div>
 </div>
 <div id="panel-contents">
-<div class="button-container">
-    <button class="load-button" id="loadButton" onclick="document.getElementById('fileInput').click()">Load Notebook</button>
-    <button class="save-button" id="saveButtonTop" onclick="saveNotebook()">Save Notebook</button>
-    <input type="file" id="fileInput" style="display: none;" onchange="loadNotebook()">
-</div>
 <div id="editor-container">
     <!-- Text Editor Section -->
     <div class="editor-section">
