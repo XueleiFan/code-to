@@ -32,7 +32,15 @@ const defaultNotebook = [
     {
         "text": null,
         "code": "// Let's check it out!\n++i;"
-    }
+    },
+    {
+        "text": "<p>For in-depth guidance, use the <em>/help</em> command to access detailed usage information.</p>",
+        "code": null
+    },
+    {
+        "text": null,
+        "code": "/help"
+    },
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
