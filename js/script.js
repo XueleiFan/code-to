@@ -16,6 +16,25 @@ const toolbarOptions = [
     ['clean']
 ];
 
+const defaultNotebook = [
+    {
+        "text": "<h1 class=\"ql-align-center\">Java Code Playground</h1><h3 class=\"ql-align-center\">Code, Run, Share - Instantly!</h3><p><br></p><p>From idea to execution, seamlessly! Enter your thoughts, code your snippets, and hit \"go\" to watch them come alive in Java Code Playground.</p>",
+        "code": null
+    },
+    {
+        "text": null,
+        "code": "// Enter your code and see it come to life!\nvar i = 0;"
+    },
+    {
+        "text": "<p>Code, evaluate, iterate - all in one place.</p>",
+        "code": null
+    },
+    {
+        "text": null,
+        "code": "// Let's check it out!\n++i;"
+    }
+];
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the first Quill editor
     new Quill('.text-editor', {
@@ -414,6 +433,8 @@ async function populateFromQueryParameters() {
         } catch (error) {
             console.error('Error fetching "index.notebook":', error);
         }
+    } else {
+        recreateEditorSections(defaultNotebook);
     }
 }
 
