@@ -29,7 +29,7 @@ body {
 }
 
 /* Responsive adjustments */
-@media (min-width: 1024px) {
+@media (min-width: 1025px) {
     /* For tablets and smaller devices */
     body {
         display: flex;
@@ -39,7 +39,8 @@ body {
     #panel-sidenav {
         border-right: 1px solid #ccc; /* Separator between panels */
         width: 30%; /* Adjust the width as needed */
-        max-width: 320px; /* Maximum width for larger screens */
+        max-width: 480px; /* Maximum width for larger screens */
+        min-width: 340px;
     }
 
     #logo {
@@ -206,7 +207,7 @@ body {
 }
 
 .load-button, .save-button {
-    padding: 10px 20px;
+    padding: 10px 5px;
     background-color: #007bff;
 }
 
